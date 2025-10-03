@@ -23,7 +23,10 @@ def main(args):
     config = yaml_dict["config"] # wandb login success or fail
     
     # Call DataLoader [train / valid / test / etc...]
-    dataloaders = get_dataloaders(args, config["dataset"], config["dataloader"])
+    if args.engine_mode != "infer_sample":
+        dataloaders = get_dataloaders(args, config["dataset"], config["dataloader"])
+    else:
+        dataloaders = None
     
     ''' Build Model '''
     # Call network model
